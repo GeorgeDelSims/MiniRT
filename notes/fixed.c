@@ -8,49 +8,49 @@ typedef int32_t fixed;
 // Convert an integer to fixed-point
 fixed int_to_fixed(int i) 
 {
-    return i * SCALE_FACTOR;
+    return (i * SCALE_FACTOR);
 }
 
 // Convert a fixed-point number to an integer
 int fixed_to_int(fixed f) 
 {
-    return f / SCALE_FACTOR;
+    return (f / SCALE_FACTOR);
 }
 
 // Convert a floating-point number to fixed-point
 fixed float_to_fixed(float f) 
 {
-    return (fixed)(f * SCALE_FACTOR);
+    return ((fixed)(f * SCALE_FACTOR));
 }
 
 // Convert a fixed-point number to floating-point
 float fixed_to_float(fixed f) 
 {
-    return (float)f / SCALE_FACTOR;
+    return ((float)f / SCALE_FACTOR);
 }
 
 // Fixed-point addition
 fixed fixed_add(fixed a, fixed b) 
 {
-    return a + b;
+    return (a + b);
 }
 
 // Fixed-point subtraction
 fixed fixed_sub(fixed a, fixed b) 
 {
-    return a - b;
+    return (a - b);
 }
 
 // Fixed-point multiplication
 fixed fixed_mul(fixed a, fixed b) 
 {
-    return (a * b) / SCALE_FACTOR;
+    return ((a * b) / SCALE_FACTOR);
 }
 
 // Fixed-point division
 fixed fixed_div(fixed a, fixed b) 
 {
-    return (a * SCALE_FACTOR) / b;
+    return ((a * SCALE_FACTOR) / b);
 }
 
 int main() 
@@ -70,5 +70,5 @@ int main()
     printf("prod = %f\n", fixed_to_float(prod));
     printf("quot = %f\n", fixed_to_float(quot));
 
-    return 0;
+    return (0);
 }
