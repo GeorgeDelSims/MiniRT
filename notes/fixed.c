@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-typedef int32_t fixed;
+typedef int64_t fixed;
 
 #define FRACTIONAL_BITS 16
 #define SCALE_FACTOR (1 << FRACTIONAL_BITS)
@@ -29,18 +29,6 @@ float fixed_to_float(fixed f)
     return ((float)f / SCALE_FACTOR);
 }
 
-// Fixed-point addition
-fixed fixed_add(fixed a, fixed b) 
-{
-    return (a + b);
-}
-
-// Fixed-point subtraction
-fixed fixed_sub(fixed a, fixed b) 
-{
-    return (a - b);
-}
-
 // Fixed-point multiplication
 fixed fixed_mul(fixed a, fixed b) 
 {
@@ -51,6 +39,29 @@ fixed fixed_mul(fixed a, fixed b)
 fixed fixed_div(fixed a, fixed b) 
 {
     return ((a * SCALE_FACTOR) / b);
+}
+
+fixed   fixed_square(fixed a)
+{
+    return (fixed_mul(a, a));
+}
+
+fixed   fixed_sqrt(fixed a)
+{
+    fixed   result;
+    fixed   root;
+
+    if (a <= 0)
+        return (0);
+    root = a;
+    while (1)
+    {
+        result = (root + fixed_div(a, root)) / 2;
+        if (result == root || result == root + 1)
+            break;
+        root = result;
+    }
+    return (result);
 }
 
 int main() 
