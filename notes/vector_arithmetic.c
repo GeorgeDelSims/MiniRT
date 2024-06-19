@@ -1,15 +1,5 @@
-#include "fixed.c"
-
-
-// (x, y, z) coordinates and type is 1 for a point and 0 for a vector
-typedef struct s_vect
-{
-	fixed	x;
-	fixed	y;
-	fixed	z;
-	fixed	type;		
-}		t_vect;
-
+#include "fixed.h"
+#include "vectors.h"
 
 /* ---------- VECTOR FUNCTIONS ---------- */
 
@@ -106,7 +96,7 @@ t_vect	*scale_vect(t_vect *vector, fixed scalar)
 }
 
 // Scalar Division
-t_vect	*scale_vect(t_vect *vector, fixed scalar)
+t_vect	*div_vect(t_vect *vector, fixed scalar)
 {
 	t_vect	*result;
 
@@ -138,15 +128,15 @@ fixed	magnitude(t_vect *vect)
 t_vect	*normalise(t_vect *vector)
 {
 	t_vect	*result;
-	fixed	magnitude;
+	fixed	mag;
 
-	magnitude = magnitude(vector);
+	mag = magnitude(vector);
 	result = (t_vect *)malloc(sizeof(t_vect));
 	if (!result)
 		return (NULL);
-	result->x = vector->x / magnitude;
-	result->y = vector->y / magnitude;
-	result->z = vector->z / magnitude;
+	result->x = vector->x / mag;
+	result->y = vector->y / mag;
+	result->z = vector->z / mag;
 	result->type = vector->type;
 	return (result);
 }
@@ -180,7 +170,7 @@ t_vect	*cross_prod(t_vect *v1, t_vect *v2)
 	result = (t_vect *)malloc(sizeof(t_vect));
 	if (!result)
 		return (NULL);
-	result->x = fixed_mul(v1->y, v2->z) - fixed_mul(v1->z - v2->y);
+	result->x = fixed_mul(v1->y, v2->z) - fixed_mul(v1->z, v2->y);
 	result->y = fixed_mul(v1->z, v2->x) - fixed_mul(v1->x, v2->z);
 	result->z = fixed_mul(v1->x, v2->y) - fixed_mul(v1->y, v2->x);
 	result->type = 0;

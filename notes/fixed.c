@@ -1,9 +1,4 @@
-#include <stdio.h>
-
-typedef int64_t fixed;
-
-#define FRACTIONAL_BITS 16
-#define SCALE_FACTOR (1 << FRACTIONAL_BITS)
+#include "fixed.h"
 
 // Convert an integer to fixed-point
 fixed int_to_fixed(int i) 
@@ -64,6 +59,7 @@ fixed   fixed_sqrt(fixed a)
     return (result);
 }
 
+/*
 int main() 
 {
     fixed a = float_to_fixed(1.5);
@@ -83,3 +79,4 @@ int main()
 
     return (0);
 }
+*/
