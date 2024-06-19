@@ -121,12 +121,70 @@ t_vect	*scale_vect(t_vect *vector, fixed scalar)
 }
 
 // Vector Magnitude  (= total length of a vector)
+// magnitude = square root of (the sum of the vector elements squared)
+// Pythagoras
+// a vector with a magnitude of 1 is called a unit vector
 fixed	magnitude(t_vect *vect)
 {
 	fixed	sum;
 
 	sum = fixed_square(vect->x) + fixed_square(vect->y) + fixed_square(vect->z);
 	return (fixed_sqrt(sum));
+}
+
+// Normalisation:
+// The process of converting vectors into unit vectors (magnitude 1)
+// keeps all calculations on a common scale
+t_vect	*normalise(t_vect *vector)
+{
+	t_vect	*result;
+	fixed	magnitude;
+
+	magnitude = magnitude(vector);
+	result = (t_vect *)malloc(sizeof(t_vect));
+	if (!result)
+		return (NULL);
+	result->x = vector->x / magnitude;
+	result->y = vector->y / magnitude;
+	result->z = vector->z / magnitude;
+	result->type = vector->type;
+	return (result);
+}
+
+
+// Dot Product (or scalar product)
+// multiplication of two vectors 
+fixed	dot_prod(t_vect *v1, t_vect *v2)
+{
+	fixed	dot;
+
+	if (v1->type != 0 || v2->type != 0)
+	{
+		perror("Dot product only works with vectors.\n");
+		return (0);
+	}
+	dot = fixed_mul(v1->x, v2->x)\
+		+ fixed_mul(v1->y, v2->y)\
+		+ fixed_mul(v1->z, v2->z)\
+		+ fixed_mul(v1->type, v2->type); // should be equal to 0
+	return (dot);
+}
+
+
+// Cross product of two vectors 
+// Returns the vector perpendicular to both original vectors in 3D
+t_vect	*cross_prod(t_vect *v1, t_vect *v2)
+{
+	t_vect	*result;
+
+	result = (t_vect *)malloc(sizeof(t_vect));
+	if (!result)
+		return (NULL);
+	result->x = fixed_mul(v1->y, v2->z) - fixed_mul(v1->z - v2->y);
+	result->y = fixed_mul(v1->z, v2->x) - fixed_mul(v1->x, v2->z);
+	result->z = fixed_mul(v1->x, v2->y) - fixed_mul(v1->y, v2->x);
+	result->type = 0;
+	return (result);
 }
 
 
